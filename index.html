@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+
+	   <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BDbaaa9ef213b1f5ac21479e719a92ce"></script>
+       <script type="text/javascript">
+	   
+	   
+	 
+	   
+	   
+	   
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+
+
+
+
+
+var geoCoordMap = {
+    "海门市店铺1":[121.15,31.89],
+    "鄂尔多斯市店铺1":[109.781327,39.608266],
+    "招远市店铺1":[120.38,37.35],
+    "舟山市店铺1":[122.207216,29.985295],
+    "齐齐哈尔市店铺1":[123.97,47.33],
+    "盐城市店铺1":[120.13,33.38],
+    "赤峰市店铺1":[118.87,42.28],
+    "青岛市店铺1":[120.33,36.07],
+    "乳山市店铺1":[121.52,36.89],
+    "金昌市店铺1":[102.188043,38.520089],
+    "泉州市店铺1":[118.58,24.93],
+    "莱西市店铺1":[120.53,36.86],
+    "日照市店铺1":[119.46,35.42],
+    "胶南市店铺1":[119.97,35.88],
+    "南通市店铺1":[121.05,32.08],
+    "拉萨市店铺1":[91.11,29.97],
+    "云浮市店铺1":[112.02,22.93],
+    "梅州市店铺1":[116.1,24.55],
+    "文登市店铺1":[122.05,37.2],
+    "上海市店铺1":[121.48,31.22],
+    "攀枝花市店铺1":[101.718637,26.582347],
+    "威海市店铺1":[122.1,37.5],
+    "承德市店铺1":[117.93,40.97],
+    "厦门市店铺1":[118.1,24.46],
+    "汕尾市店铺1":[115.375279,22.786211],
+    "潮州市店铺1":[116.63,23.68],
+    "丹东市店铺1":[124.37,40.13],
+    "太仓市店铺1":[121.1,31.45],
+    "曲靖市店铺1":[103.79,25.51],
+    "烟台市店铺1":[121.39,37.52],
+    "福州市店铺1":[119.3,26.08],
+    "瓦房市店铺1":[121.979603,39.627114],
+    "即墨市店铺1":[120.45,36.38],
+    "抚顺市店铺1":[123.97,41.97],
+    "玉溪市店铺1":[102.52,24.35],
+    "张家口市店铺1":[114.87,40.82],
+    "阳泉市店铺1":[113.57,37.85],
+    "莱州市店铺1":[119.942327,37.177017],
+    "湖州市店铺1":[120.1,30.86],
+    "汕头市店铺1":[116.69,23.39],
+    "昆山市店铺1":[120.95,31.39],
+    "宁波市店铺1":[121.56,29.86],
+    "湛江市店铺1":[110.359377,21.270708],
+    "揭阳市店铺1":[116.35,23.55],
+    "荣成市店铺1":[122.41,37.16],
+    "连云港市店铺1":[119.16,34.59],
+    "葫芦岛市店铺1":[120.836932,40.711052],
+    "常熟市店铺1":[120.74,31.64],
+    "东莞市店铺1":[113.75,23.04],
+    "河源市店铺1":[114.68,23.73],
+    "淮安市店铺1":[119.15,33.5],
+    "泰州市店铺1":[119.9,32.49],
+    "南宁市店铺1":[108.33,22.84],
+    "营口市店铺1":[122.18,40.65],
+    "惠州市店铺1":[114.4,23.09],
+    "江阴市店铺1":[120.26,31.91],
+    "蓬莱市店铺1":[120.75,37.8],
+    "韶关市店铺1":[113.62,24.84],
+    "嘉峪关市店铺1":[98.289152,39.77313],
+    "广州市店铺1":[113.23,23.16],
+    "延安市店铺1":[109.47,36.6],
+    "太原市店铺1":[112.53,37.87],
+    "清远市店铺1":[113.01,23.7],
+    "中山市店铺1":[113.38,22.52],
+    "昆明市店铺1":[102.73,25.04],
+    "寿光市店铺1":[118.73,36.86],
+    "盘锦市店铺1":[122.070714,41.119997],
+    "长治市店铺1":[113.08,36.18],
+    "深圳市店铺1":[114.07,22.62],
+    "珠海市店铺1":[113.52,22.3],
+    "宿迁市店铺1":[118.3,33.96],
+    "咸阳市店铺1":[108.72,34.36],
+    "铜川市店铺1":[109.11,35.09],
+    "平度市店铺1":[119.97,36.77],
+    "佛山市店铺1":[113.11,23.05],
+    "海口市店铺1":[110.35,20.02],
+    "江门市店铺1":[113.06,22.61],
+    "章丘市店铺1":[117.53,36.72],
+    "肇庆市店铺1":[112.44,23.05],
+    "大连市店铺1":[121.62,38.92],
+    "临汾市店铺1":[111.5,36.08],
+    "吴江市店铺1":[120.63,31.16],
+    "石嘴山市店铺1":[106.39,39.04],
+    "沈阳市店铺1":[123.38,41.8],
+    "苏州市店铺1":[120.62,31.32],
+    "茂名市店铺1":[110.88,21.68],
+    "嘉兴市店铺1":[120.76,30.77],
+    "长春市店铺1":[125.35,43.88],
+    "胶州市店铺1":[120.03336,36.264622],
+    "银川市店铺1":[106.27,38.47],
+    "张家港市店铺1":[120.555821,31.875428],
+    "三门峡市店铺1":[111.19,34.76],
+    "锦州市店铺1":[121.15,41.13],
+    "南昌市店铺1":[115.89,28.68],
+    "柳州市店铺1":[109.4,24.33],
+    "三亚市店铺1":[109.511909,18.252847],
+    "自贡市店铺1":[104.778442,29.33903],
+    "吉林市店铺1":[126.57,43.87],
+    "阳江市店铺1":[111.95,21.85],
+    "泸州市店铺1":[105.39,28.91],
+    "西宁市店铺1":[101.74,36.56],
+    "宜宾市店铺1":[104.56,29.77],
+    "呼和浩特市店铺1":[111.65,40.82],
+    "成都市店铺1":[104.06,30.67],
+    "大同市店铺1":[113.3,40.12],
+    "镇江市店铺1":[119.44,32.2],
+    "桂林市店铺1":[110.28,25.29],
+    "张家界市店铺1":[110.479191,29.117096],
+    "宜兴市店铺1":[119.82,31.36],
+    "北海市店铺1":[109.12,21.49],
+    "西安市店铺1":[108.95,34.27],
+    "金坛市店铺1":[119.56,31.74],
+    "东营市店铺1":[118.49,37.46],
+    "牡丹江市店铺1":[129.58,44.6],
+    "遵义市店铺1":[106.9,27.7],
+    "绍兴市店铺1":[120.58,30.01],
+    "扬州市店铺1":[119.42,32.39],
+    "常州市店铺1":[119.95,31.79],
+    "潍坊市店铺1":[119.1,36.62],
+    "重庆市店铺1":[106.54,29.59],
+    "台州市店铺1":[121.420757,28.656386],
+    "南京市店铺1":[118.78,32.04],
+    "滨州市店铺1":[118.03,37.36],
+    "贵阳市店铺1":[106.71,26.57],
+    "无锡市店铺1":[120.29,31.59],
+    "本溪市店铺1":[123.73,41.3],
+    "克拉玛依市店铺1":[84.77,45.59],
+    "渭南市店铺1":[109.5,34.52],
+    "马鞍山市店铺1":[118.48,31.56],
+    "宝鸡市店铺1":[107.15,34.38],
+    "焦作市店铺1":[113.21,35.24],
+    "句容市店铺1":[119.16,31.95],
+    "北京市店铺1":[116.46,39.92],
+    "徐州市店铺1":[117.2,34.26],
+    "衡水市店铺1":[115.72,37.72],
+    "包头市店铺1":[110,40.58],
+    "绵阳市店铺1":[104.73,31.48],
+    "乌鲁木齐市店铺1":[87.68,43.77],
+    "枣庄市店铺1":[117.57,34.86],
+    "杭州市店铺1":[120.19,30.26],
+    "淄博市店铺1":[118.05,36.78],
+    "鞍山市店铺1":[122.85,41.12],
+    "溧阳市店铺1":[119.48,31.43],
+    "库尔勒市店铺1":[86.06,41.68],
+    "安阳市店铺1":[114.35,36.1],
+    "开封市店铺1":[114.35,34.79],
+    "济南市店铺1":[117,36.65],
+    "德阳市店铺1":[104.37,31.13],
+    "温州市店铺1":[120.65,28.01],
+    "九江市店铺1":[115.97,29.71],
+    "邯郸市店铺1":[114.47,36.6],
+    "临安市店铺1":[119.72,30.23],
+    "兰州市店铺1":[103.73,36.03],
+    "沧州市店铺1":[116.83,38.33],
+    "临沂市店铺1":[118.35,35.05],
+    "南充市店铺1":[106.110698,30.837793],
+    "天津市店铺1":[117.2,39.13],
+    "富阳市店铺1":[119.95,30.07],
+    "泰安市店铺1":[117.13,36.18],
+    "诸暨市店铺1":[120.23,29.71],
+    "郑州市店铺1":[113.65,34.76],
+    "哈尔滨市店铺1":[126.63,45.75],
+    "聊城市店铺1":[115.97,36.45],
+    "芜湖市店铺1":[118.38,31.33],
+    "唐山市店铺1":[118.02,39.63],
+    "平顶山市店铺1":[113.29,33.75],
+    "邢台市店铺1":[114.48,37.05],
+    "德州市店铺1":[116.29,37.45],
+    "济宁市店铺1":[116.59,35.38],
+    "荆州市店铺1":[112.239741,30.335165],
+    "宜昌市店铺1":[111.3,30.7],
+    "义乌市店铺1":[120.06,29.32],
+    "丽水市店铺1":[119.92,28.45],
+    "洛阳市店铺1":[112.44,34.7],
+    "秦皇岛市店铺1":[119.57,39.95],
+    "株洲市店铺1":[113.16,27.83],
+    "石家庄市店铺1":[114.48,38.03],
+    "莱芜市店铺1":[117.67,36.19],
+    "常德市店铺1":[111.69,29.05],
+    "保定市店铺1":[115.48,38.85],
+    "湘潭市店铺1":[112.91,27.87],
+    "金华市店铺1":[119.64,29.12],
+    "岳阳市店铺1":[113.09,29.37],
+    "长沙市店铺1":[113,28.21],
+    "衢州市店铺1":[118.88,28.97],
+    "廊坊市店铺1":[116.7,39.53],
+    "菏泽市店铺1":[115.480656,35.23375],
+    "合肥市店铺1":[117.27,31.86],
+    "武汉市店铺1":[114.31,30.52],
+    "大庆市店铺1":[125.03,46.58]
+};
+
+var data = [
+    {name: "海门市店铺1", value: 9,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "鄂尔多斯市店铺2", value: 12,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "招远市店铺1", value: 12,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "舟山市店铺1", value: 12,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "齐齐哈尔市店铺1", value: 14,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "盐城市店铺1", value: 15,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "赤峰市店铺1", value: 16,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "青岛市店铺1", value: 18,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "乳山市店铺1", value: 18,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "金昌市店铺1", value: 19,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "泉州市店铺1", value: 21,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "莱西市店铺1", value: 21,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "日照市店铺1", value: 21,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "胶南市店铺1", value: 22,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "南通市店铺1", value: 23,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "拉萨市店铺1", value: 24,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "云浮市店铺1", value: 24,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "梅州市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "文登市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "上海市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "攀枝花市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "威海市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "承德市店铺1", value: 25,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "厦门市店铺1", value: 26,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "汕尾市店铺1", value: 26,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "潮州市店铺1", value: 26,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "丹东市店铺1", value: 27,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "太仓市店铺1", value: 27,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "曲靖市店铺1", value: 27,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "烟台市店铺1", value: 28,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "福州市店铺1", value: 29,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "瓦房市店铺1", value: 30,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "即墨市店铺1", value: 30,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "抚顺市店铺1", value: 31,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "玉溪市店铺1", value: 31,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "张家口市店铺1", value: 31,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "阳泉市店铺1", value: 31,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "莱州市店铺1", value: 32,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "湖州市店铺1", value: 32,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "汕头市店铺1", value: 32,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "昆山市店铺1", value: 33,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "宁波市店铺1", value: 33,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "湛江市店铺1", value: 33,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "揭阳市店铺1", value: 34,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "荣成市店铺1", value: 34,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "连云港市店铺1", value: 35,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "葫芦岛市店铺1", value: 35,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "常熟市店铺1", value: 36,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "东莞市店铺1", value: 36,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "河源市店铺1", value: 36,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "淮安市店铺1", value: 36,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "泰州市店铺1", value: 36,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "南宁市店铺1", value: 37,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "营口市店铺1", value: 37,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "惠州市店铺1", value: 37,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "江阴市店铺1", value: 37,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "蓬莱市店铺1", value: 37,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "韶关市店铺1", value: 38,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "嘉峪关市店铺1", value: 38,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "广州市店铺1", value: 38,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "延安市店铺1", value: 38,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "太原市店铺1", value: 39,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "清远市店铺1", value: 39,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "中山市店铺1", value: 39,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "昆明市店铺1", value: 39,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "寿光市店铺1", value: 40,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "盘锦市店铺1", value: 40,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "长治市店铺1", value: 41,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "深圳市店铺1", value: 41,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "珠海市店铺1", value: 42,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "宿迁市店铺1", value: 43,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "咸阳市店铺1", value: 43,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "铜川市店铺1", value: 44,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "平度市店铺1", value: 44,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "佛山市店铺1", value: 44,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "海口市店铺1", value: 44,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "江门市店铺1", value: 45,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "章丘市店铺1", value: 45,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "肇庆市店铺1", value: 46,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "大连市店铺1", value: 47,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "临汾市店铺1", value: 47,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "吴江市店铺1", value: 47,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "石嘴山市店铺1", value: 49,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "沈阳市店铺1", value: 50,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "苏州市店铺1", value: 50,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "茂名市店铺1", value: 50,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "嘉兴市店铺1", value: 51,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "长春市店铺1", value: 51,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "胶州市店铺1", value: 52,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "银川市店铺1", value: 52,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "张家港市店铺1", value: 52,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "三门峡市店铺1", value: 53,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "锦州市店铺1", value: 54,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "南昌市店铺1", value: 54,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "柳州市店铺1", value: 54,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "三亚市店铺1", value: 54,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "自贡市店铺1", value: 56,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "吉林市店铺1", value: 56,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "阳江市店铺1", value: 57,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "泸州市店铺1", value: 57,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "西宁市店铺1", value: 57,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "宜宾市店铺1", value: 58,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "呼和浩特市店铺1", value: 58,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "成都市店铺1", value: 58,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "大同市店铺1", value: 58,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "镇江市店铺1", value: 59,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "桂林市店铺1", value: 59,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "张家界市店铺1", value: 59,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "宜兴市店铺1", value: 59,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "北海市店铺1", value: 60,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "西安市店铺1", value: 61,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "金坛市店铺1", value: 62,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "东营市店铺1", value: 62,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "牡丹江市店铺1", value: 63,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "遵义市店铺1", value: 63,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "绍兴市店铺1", value: 63,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "扬州市店铺1", value: 64,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "常州市店铺1", value: 64,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "潍坊市店铺1", value: 65,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "重庆市店铺1", value: 66,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "台州市店铺1", value: 67,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "南京市店铺1", value: 67,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "滨州市店铺1", value: 70,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "贵阳市店铺1", value: 71,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "无锡市店铺1", value: 71,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "本溪市店铺1", value: 71,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "克拉玛依市店铺1", value: 72,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "渭南市店铺1", value: 72,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "马鞍山市店铺1", value: 72,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "宝鸡市店铺1", value: 72,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "焦作市店铺1", value: 75,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "句容市店铺1", value: 75,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "北京市店铺1", value: 79,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "徐州市店铺1", value: 79,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "衡水市店铺1", value: 80,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "包头市店铺1", value: 80,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "绵阳市店铺1", value: 80,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "乌鲁木齐市店铺1", value: 84,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "枣庄市店铺1", value: 84,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "杭州市店铺1", value: 84,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "淄博市店铺1", value: 85,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "鞍山市店铺1", value: 86,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "溧阳市店铺1", value: 86,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "库尔勒市店铺1", value: 86,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "安阳市店铺1", value: 90,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "开封市店铺1", value: 90,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "济南市店铺1", value: 92,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "德阳市店铺1", value: 93,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "温州市店铺1", value: 95,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "九江市店铺1", value: 96,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "邯郸市店铺1", value: 98,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "临安市店铺1", value: 99,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "兰州市店铺1", value: 99,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "沧州市店铺1", value: 100,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "临沂市店铺1", value: 103,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "南充市店铺1", value: 104,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "天津市店铺1", value: 105,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "富阳市店铺1", value: 106,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "泰安市店铺1", value: 112,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "诸暨市店铺1", value: 112,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "郑州市店铺1", value: 113,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "哈尔滨市店铺1", value: 114,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "聊城市店铺1", value: 116,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "芜湖市店铺1", value: 117,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "唐山市店铺1", value: 119,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "平顶山市店铺1", value: 119,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "邢台市店铺1", value: 119,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "德州市店铺1", value: 120,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "济宁市店铺1", value: 120,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "荆州市店铺1", value: 127,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "宜昌市店铺1", value: 130,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "义乌市店铺1", value: 132,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "丽水市店铺1", value: 133,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "洛阳市店铺1", value: 134,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "秦皇岛市店铺1", value: 136,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "株洲市店铺1", value: 143,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "石家庄市店铺1", value: 147,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "莱芜市店铺1", value: 148,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "常德市店铺1", value: 152,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "保定市店铺1", value: 153,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "湘潭市店铺1", value: 154,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "金华市店铺1", value: 157,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "岳阳市店铺1", value: 169,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "长沙市店铺1", value: 175,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "衢州市店铺1", value: 177,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "廊坊市店铺1", value: 193,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'},
+    {name: "菏泽市店铺1", value: 194,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "合肥市店铺1", value: 229,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：C band'},
+    {name: "武汉市店铺1", value: 273,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：B band'},
+    {name: "大庆店店铺1", value: 279,address:'北京市朝阳区十里河',area:'坪效：10000',pinlei:'热销品类：饮料,烟草,饮用水',paiming:'热销单品：怡宝纯净水350ml,百岁山矿泉水570ml,康师傅冰红茶500ml',category:'分级：A band'}
+];
+
+var convertData = function (data) {
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
+        var geoCoord = geoCoordMap[data[i].name];
+        if (geoCoord) {
+            res.push({
+                name: data[i].name,
+                value: geoCoord.concat(data[i])
+            });
+        }
+    }
+    return res;
+};
+
+function filterCategory(data, category) {
+	var res = [];
+	for( var i = 0; i < data.length; i++) {
+		var da = data[i];
+		var thisCategory = da.value[2].category;
+		console.log(category, thisCategory);
+		console.log(category === thisCategory);
+		if(thisCategory === category) {
+			res.push(da);
+		}
+	}
+	console.log(category, res);
+	return res;
+}
+
+var convertedData = [
+    convertData(data),
+    convertData(data.sort(function (a, b) {
+        return b.value - a.value;
+    }).slice(0, 6))
+];
+
+option = {
+    backgroundColor: '#434343',
+    animation: true,
+    animationDuration: 1000,
+    animationEasing: 'cubicInOut',
+    animationDurationUpdate: 1000,
+    animationEasingUpdate: 'cubicInOut',
+    title: [
+        {
+           // text: '全国店铺情况总览',
+           // subtext: 'data from PM25.in',
+           // sublink: 'http://www.pm25.in',
+            left: 'center',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        {
+            id: 'statistic',
+            right: 220,
+            top: 40,
+            width: 100,
+            textStyle: {
+                color: '#fff',
+                fontSize: 16
+            }
+        }
+    ],
+    toolbox: {
+        iconStyle: {
+            normal: {
+                borderColor: '#fff'
+            },
+            emphasis: {
+                borderColor: '#b1e4ff'
+            }
+        }
+    },
+    brush: {
+        outOfBrush: {
+            color: '#abc'
+        },
+        brushStyle: {
+            borderWidth: 2,
+            color: 'rgba(106,176,184,0.2)',
+            borderColor: 'rgba(95,158,160,0.5)',
+        },
+        seriesIndex: [0, 1, 2],
+        throttleType: 'debounce',
+        throttleDelay: 300,
+        geoIndex: 0
+    },
+    geo: {
+        map: 'china',
+        left: '10',
+        right: '35%',
+        //center: [117.98561551896913, 31.205000490896193],
+        //zoom: 2.5,
+        label: {
+            emphasis: {
+                show: false
+            }
+        },
+        roam: true,
+        itemStyle: {
+            normal: {
+                //areaColor: '#323c48',
+				areaColor: '#2D2D2D',
+                borderColor: '#111'
+            },
+            emphasis: {
+                areaColor: '#2a333d'
+            }
+        }
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: function(param) {
+            var data = param.data;
+            var customer = data.value[2]
+            return  data.name + '</br> ' + customer.address+'</br>' + customer.area+'</br>' + /*customer.renxiao+'</br>' +*/ customer.pinlei + '</br>' +customer.paiming+'</br>'+customer.category
+        }
+    },
+    legend: {
+        orient: 'vertical',
+        y: 'bottom',
+        x:'right',
+        data:['A band','B band','C band'],
+		//selectedMode: 'single',
+        textStyle: {
+            color: '#fff'
+        }
+    },
+    grid: {
+        right: 40,
+        top: 100,
+        bottom: 40,
+        width: '30%'
+    },
+    xAxis: {
+        type: 'value',
+        scale: true,
+        position: 'top',
+        boundaryGap: false,
+        splitLine: {show: false},
+        axisLine: {show: false},
+        axisTick: {show: false},
+        axisLabel: {margin: 2, textStyle: {color: '#aaa'}},
+    },
+    yAxis: {
+        type: 'category',
+        name: 'TOP 20',
+        nameGap: 16,
+        axisLine: {show: false, lineStyle: {color: '#ddd'}},
+        axisTick: {show: false, lineStyle: {color: '#ddd'}},
+        axisLabel: {interval: 0, textStyle: {color: '#ddd'}},
+        data: []
+    },
+    series : [
+        {
+            name: 'A band',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: filterCategory(convertedData[0], '分级：A band'),
+			//data:val[2].category,
+            symbolSize: function (val) {
+                return Math.max(val[2].value / 10, 8);
+            },
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: false
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#d48265'
+                }
+            }
+        },
+		
+		 {
+            name: 'B band',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: filterCategory(convertedData[0], '分级：B band'),
+            symbolSize: function (val) {
+                return Math.max(val[2].value / 10, 8);
+            },
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: false
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#ddb926'
+                }
+            }
+        },
+		  
+ 	 {
+            name: 'C band',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: filterCategory(convertedData[0], '分级：C band'),
+            symbolSize: function (val) {
+                return Math.max(val[2].value / 10, 8);
+            },
+            label: {
+                normal: {
+                    formatter: '{b}',
+                    position: 'right',
+                    show: false
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#61a0a8'
+                }
+            }
+        },     
+        {
+            id: 'bar',
+            zlevel: 2,
+            type: 'bar',
+            symbol: 'none',
+            itemStyle: {
+                normal: {
+                    color: '#ddb926'
+                }
+            },
+            data: []
+        }
+    ]
+};
+
+
+myChart.on('brushselected', renderBrushed);
+
+// myChart.setOption(option);
+
+setTimeout(function () {
+    myChart.dispatchAction({
+        type: 'brush'
+    });
+}, 0);
+
+
+
+function renderBrushed(params) {
+    var mainSeries = params.batch[0].selected[0];
+var convertData=[];
+    var selectedItems = [];
+    var categoryData = [];
+    var barData = [];
+    var maxBar = 30;
+    //var sum = 0;
+    var count = 0;
+	if (mainSeries.dataIndex.length == 0) {
+		for(var i = 0; i < convertedData[0].length; i++){
+			selectedItems.push(convertedData[0][i]);
+		}
+	} else {
+	
+		for (var i = 0; i < mainSeries.dataIndex.length; i++) {
+			var rawIndex = mainSeries.dataIndex[i];
+			var dataItem = convertedData[0][rawIndex];
+			//var pmValue = dataItem.value[2].value;
+
+			//sum += pmValue;
+			count++;
+
+			selectedItems.push(dataItem);
+		}
+
+	}
+	selectedItems.sort(function (a, b) {
+		return a.value[2].value - b.value[2].value;
+	});
+
+	for (var i = 0; i < Math.min(selectedItems.length, maxBar); i++) {
+		categoryData.push(selectedItems[i].name);
+		barData.push(selectedItems[i].value[2].value);
+	}
+    this.setOption({
+        yAxis: {
+            data: categoryData
+        },
+        xAxis: {
+            axisLabel: {show: !!count}
+        },
+		//title:'GMV 排名',
+        title: {
+            id: 'statistic',
+            // text: count ? '平均: ' + (sum / count).toFixed(4) : ''
+			text: '店铺销售额 排名'
+        },
+		/*title: {
+            id: 'statistic',
+            text: count?'店铺总数：'+(sum).toFixed(4):''
+        },*/
+        series: {
+            id: 'bar',
+            data: barData
+        }
+    });
+};
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
