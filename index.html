@@ -6,21 +6,21 @@
    <body style="height: 100%; margin: 0">
 
 	   <div id="container" style="height: 100%"></div>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="./echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="./echarts/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="./echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="./echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="./echarts/map/js/world.js"></script>
        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="./echarts/extension/bmap.min.js"></script>
 	   <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BDbaaa9ef213b1f5ac21479e719a92ce"></script>
        <script type="text/javascript">
-	   
-	   
-	 
-	   
-	   
-	   
+
+
+
+
+
+
 var dom = document.getElementById("container");
 var myChart = echarts.init(dom);
 var app = {};
@@ -597,7 +597,7 @@ option = {
                 }
             }
         },
-		
+
 		 {
             name: 'B band',
             type: 'scatter',
@@ -622,7 +622,7 @@ option = {
                 }
             }
         },
-		  
+
  	 {
             name: 'C band',
             type: 'scatter',
@@ -646,7 +646,7 @@ option = {
                     color: '#61a0a8'
                 }
             }
-        },     
+        },
         {
             id: 'bar',
             zlevel: 2,
@@ -689,7 +689,7 @@ var convertData=[];
 			selectedItems.push(convertedData[0][i]);
 		}
 	} else {
-	
+
 		for (var i = 0; i < mainSeries.dataIndex.length; i++) {
 			var rawIndex = mainSeries.dataIndex[i];
 			var dataItem = convertedData[0][rawIndex];
